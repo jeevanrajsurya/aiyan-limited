@@ -1,0 +1,182 @@
+// UK Petroleum & Forecourt Service Station Platform — Database Schema
+// Prisma Schema for PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  STAFF
+  ADMIN
+}
+
+enum ServiceCategory {
+  FUEL
+  EV_CHARGING
+  CAR_CARE
+  CONVENIENCE_STORE
+  AMENITIES
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum InquiryType {
+  GENERAL
+  FLEET_FUEL_CARD
+  COMMERCIAL_SUPPLY
+  VALET_SERVICE
+  COMPLAINT
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum JobStatus {
+  RECEIVED
+  REVIEWING
+  SHORTLISTED
+  INTERVIEW
+  REJECTED
+  HIRED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  phone        String?
+  role         Role     @default(CUSTOMER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model FuelPrice {
+  id           String   @id @default(uuid())
+  gradeName    String   @unique // e.g. "Unleaded E10", "Super Unleaded E5", "Standard Diesel B7", "Premium Diesel", "AdBlue"
+  fuelType     String   // "Petrol", "Diesel", "Additives", "LPG"
+  pricePence   Decimal  @db.Decimal(6, 1) // Price in pence per litre (e.g. 138.9)
+  badge        String?  // e.g. "Standard", "High Performance", "Eco-Friendly"
+  isActive     Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  updatedAt    DateTime @updatedAt
+
+  @@map("fuel_prices")
+}
+
+model ForecourtService {
+  id          String          @id @default(uuid())
+  name        String
+  slug        String          @unique
+  category    ServiceCategory @default(FUEL)
+  icon        String?         // Lucide/React icon name or SVG
+  summary     String
+  description String?
+  features    Json?           // Array of bullet points
+  badge       String?         // e.g. "24/7", "150kW Ultra-Rapid", "Touchless"
+  imageUrl    String?
+  isActive    Boolean         @default(true)
+  sortOrder   Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("forecourt_services")
+}
+
+model StorePromotion {
+  id             String   @id @default(uuid())
+  title          String
+  category       String   // e.g. "Food to Go", "Costa Express", "Car Care", "Snacks & Drinks"
+  description    String?
+  priceText      String?  // e.g. "£3.50 Meal Deal" or "2 for £3"
+  discountBadge  String?  // e.g. "Special Offer", "Save £1.20"
+  imageUrl       String?
+  validUntil     DateTime?
+  isActive       Boolean  @default(true)
+  sortOrder      Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("store_promotions")
+}
+
+model ValetBooking {
+  id           String        @id @default(uuid())
+  customerName String
+  email        String
+  phone        String
+  vehicleReg   String        // UK Vehicle Registration Plate (e.g. "AB21 CDE")
+  vehicleType  String        // "Hatchback/Saloon", "SUV/4x4", "Van/Commercial"
+  serviceTier  String        // "Express Wash", "Mini Valet", "Full Valet & Polish"
+  bookingDate  DateTime
+  timeSlot     String        // e.g. "10:00 - 11:00"
+  status       BookingStatus @default(PENDING)
+  notes        String?
+  price        Decimal?      @db.Decimal(10, 2)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("valet_bookings")
+}
+
+model Inquiry {
+  id          String        @id @default(uuid())
+  name        String
+  email       String
+  phone       String?
+  companyName String?
+  fleetSize   String?       // For B2B Fuel Card inquiries
+  inquiryType InquiryType   @default(GENERAL)
+  subject     String?
+  message     String
+  status      InquiryStatus @default(NEW)
+  isRead      Boolean       @default(false)
+  notes       String?       // Admin internal remarks
+  submittedAt DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("inquiries")
+}
+
+model JobApplication {
+  id           String    @id @default(uuid())
+  name         String
+  email        String
+  phone        String
+  position     String    // e.g. "Forecourt Cashier", "Store Supervisor", "Valeting Specialist"
+  experience   String?
+  availability String?   // e.g. "Full-time", "Part-time (Night Shifts)"
+  resumeUrl    String?
+  coverNote    String?
+  status       JobStatus @default(RECEIVED)
+  submittedAt  DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("job_applications")
+}

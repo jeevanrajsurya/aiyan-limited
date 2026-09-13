@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Conoco Official Gotham SSm & Founders Grotesk Typefaces */
+@font-face {
+  font-family: "Gotham SSm";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/GothamSSm-Book_Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Gotham SSm";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/GothamSSm-Medium_Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Gotham SSm";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/GothamSSm-Bold_Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Gotham SSm";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/GothamSSm-Black_Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: "Founders Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/FoundersGrotesk-Semibold_Web.woff2') format('woff2');
+}
+
+body {
+  @apply bg-gray-50 text-ink font-body antialiased;
+}
