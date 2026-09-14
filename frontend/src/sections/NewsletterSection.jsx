@@ -118,7 +118,7 @@ export default function NewsletterSection({ newsletterData }) {
   };
 
   return (
-    <section id="newsletter" className="w-full bg-white py-14 sm:py-20 border-none transition-all">
+    <section id="newsletter" className="w-full bg-white py-14 sm:py-20 border-none transition-all overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {(newsletterTitle || newsletterDesc) && (
           <div className="max-w-3xl mb-6 sm:mb-8">

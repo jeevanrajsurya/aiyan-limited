@@ -284,7 +284,7 @@ export default function AppBentoSection({ specialtyData }) {
   return (
     <section
       id="bento-app-showcase"
-      className="w-full bg-white py-14 sm:py-20 border-none transition-all"
+      className="w-full bg-white py-14 sm:py-20 border-none transition-all overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">

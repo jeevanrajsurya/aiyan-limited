@@ -3,7 +3,7 @@ import { ArrowRight, CreditCard, Gift, Award, Sparkles } from 'lucide-react';
 
 export default function CardsRewardsSection({ onOpenFleetModal }) {
   return (
-    <section id="cards-rewards" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <section id="cards-rewards" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 overflow-hidden">
       {/* Floating Bento Card matching Conoco Reference */}
       <div className="bg-white rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12">
         {/* Left: Red Presentation Capsule with Realistic Credit Card */}

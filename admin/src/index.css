@@ -43,6 +43,21 @@
   src: url('/fonts/FoundersGrotesk-Semibold_Web.woff2') format('woff2');
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+  overscroll-behavior-x: none;
+}
+
 body {
   @apply bg-gray-50 text-ink font-body antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+  overscroll-behavior-x: none;
+}
+
+#root {
+  overflow-x: hidden;
+  max-width: 100%;
 }

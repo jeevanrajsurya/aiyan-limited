@@ -57,7 +57,7 @@ export default function App() {
   const isHome = location.pathname === '/';
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-body text-[#161616]">
+    <div className="min-h-screen flex flex-col bg-white font-body text-[#161616] overflow-x-hidden w-full max-w-full relative">
       <ScrollToTop />
       <Navbar
         navigationData={settings?.navigation}
@@ -65,7 +65,7 @@ export default function App() {
         onOpenFleetModal={() => setIsFleetOpen(true)}
       />
 
-      <main className="flex-1 bg-white pt-[64px] sm:pt-[72px]">
+      <main className="flex-1 bg-white pt-[64px] sm:pt-[72px] overflow-x-hidden w-full max-w-full">
         <Routes>
           <Route
             path="/"

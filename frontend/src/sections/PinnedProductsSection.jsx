@@ -139,6 +139,10 @@ export default function PinnedProductsSection({ pinnedData }) {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
   const isPointerDown = useRef(false);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchIntent = useRef(null); // null | 'vertical' | 'horizontal'
+  const isTouchActive = useRef(false);
 
   // Auto-play timer
   useEffect(() => {
@@ -184,25 +188,54 @@ export default function PinnedProductsSection({ pinnedData }) {
 
   // Drag & Swipe Event Handlers
   const handleTouchStart = (e) => {
-    setIsDragging(true);
-    dragStartX.current = e.touches[0].clientX;
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchIntent.current = null;
+    isTouchActive.current = true;
     setDragOffset(0);
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging) return;
+    if (!isTouchActive.current || !e.touches || e.touches.length === 0) return;
     const currentX = e.touches[0].clientX;
-    const diff = currentX - dragStartX.current;
-    setDragOffset(diff);
+    const currentY = e.touches[0].clientY;
+    const diffX = currentX - touchStartX.current;
+    const diffY = currentY - touchStartY.current;
+
+    // Detect gesture intent after small movement threshold (8px)
+    if (!touchIntent.current) {
+      if (Math.abs(diffX) < 8 && Math.abs(diffY) < 8) {
+        return;
+      }
+      // If user is scrolling down or up the page, lock to vertical and do NOT drag cards
+      if (Math.abs(diffY) >= Math.abs(diffX)) {
+        touchIntent.current = 'vertical';
+        return;
+      } else {
+        // User intentionally swiped horizontally on the carousel
+        touchIntent.current = 'horizontal';
+        setIsDragging(true);
+      }
+    }
+
+    if (touchIntent.current === 'horizontal') {
+      setDragOffset(diffX);
+    }
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging) return;
-    if (dragOffset < -50) {
-      handleNext();
-    } else if (dragOffset > 50) {
-      handlePrev();
+    if (!isTouchActive.current) return;
+    isTouchActive.current = false;
+
+    if (touchIntent.current === 'horizontal') {
+      if (dragOffset < -50) {
+        handleNext();
+      } else if (dragOffset > 50) {
+        handlePrev();
+      }
     }
+    touchIntent.current = null;
     setDragOffset(0);
     setIsDragging(false);
   };
@@ -347,13 +380,15 @@ export default function PinnedProductsSection({ pinnedData }) {
         {/* 3-CARD VISIBLE CONTINUOUS STAGE CAROUSEL                                  */}
         {/* ========================================================================= */}
         <div
-          className="relative w-full h-[480px] sm:h-[550px] lg:h-[600px] overflow-hidden flex items-end justify-center cursor-grab active:cursor-grabbing pb-2 sm:pb-3"
+          className="relative w-full h-[480px] sm:h-[550px] lg:h-[600px] overflow-hidden flex items-end justify-center cursor-grab active:cursor-grabbing pb-2 sm:pb-3 touch-pan-y"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
         >
           {virtualPool.map((card, poolIdx) => {
             // Compute circular difference to activeIndex

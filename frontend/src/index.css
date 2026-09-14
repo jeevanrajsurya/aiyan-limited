@@ -187,6 +187,10 @@
 html {
   scroll-behavior: smooth;
   font-family: var(--wp--preset--font-family--gotham-ssm);
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  overscroll-behavior-x: none;
 }
 
 html,
@@ -205,6 +209,20 @@ body {
   line-height: var(--wp--custom--typography--paragraph-1--line-height);
   font-weight: var(--wp--custom--typography--paragraph-1--font-weight);
   letter-spacing: var(--wp--custom--typography--paragraph-1--letter-spacing);
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
 }
 
 h1, .h1 {
@@ -582,9 +600,10 @@ p {
     flex-direction: column;
     gap: 36px;
     min-height: auto;
-    overflow: visible;
+    overflow: hidden;
     padding: 32px 24px 0;
     width: 100%;
+    max-width: 100%;
   }
   .fuels-specialty-card__left-title,
   .fuels-specialty-card__right-title {

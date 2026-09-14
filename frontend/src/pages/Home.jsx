@@ -34,7 +34,7 @@ export default function Home({ onOpenValet, onOpenFleet, onOpenJob }) {
   const runningSpeed   = pinnedData?.runningProductsSpeed || 'normal';
 
   return (
-    <div className="min-h-screen bg-white text-[#161616]">
+    <div className="min-h-screen bg-white text-[#161616] overflow-x-hidden w-full max-w-full">
 
       {/* 1. Hero Section — Full-Width & Viewport Height */}
       {heroData?.enabled !== false && <HeroSection heroData={heroData} />}
