@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { resolveImageUrl } from '../utils/imageHelper';
 
 /**
  * Default Pinned Forecourt Cards matching the reference layout
@@ -448,7 +449,7 @@ export default function PinnedProductsSection({ pinnedData }) {
             }
 
             const effectiveDrag = isDragging ? dragOffset : 0;
-            const cardImage = card.image || '';
+            const cardImage = resolveImageUrl(card.image, '');
 
             return (
               <div

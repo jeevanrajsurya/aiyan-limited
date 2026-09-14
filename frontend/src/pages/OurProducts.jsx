@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Sparkles } from 'lucide-react';
 import { getOurProductsPageSettings, getCachedOurProductsSettings } from '../api/client';
 import { fallbackOurProductsCms } from '../data/ourProductsData';
+import { resolveImageUrl } from '../utils/imageHelper';
 
 export default function OurProducts() {
   const { data: cmsData, isLoading } = useQuery({
@@ -20,6 +21,7 @@ export default function OurProducts() {
   }
 
 
+
   const rawCms = cmsData || fallbackOurProductsCms;
   const cms = typeof rawCms === 'string' ? (() => { try { return JSON.parse(rawCms); } catch(e) { return fallbackOurProductsCms; } })() : rawCms;
   const hub = cms?.hub || fallbackOurProductsCms.hub;
@@ -27,7 +29,8 @@ export default function OurProducts() {
   const intro = hub.intro || {};
   const actionCards = Array.isArray(hub.actionCards) ? hub.actionCards : [];
 
-  const heroMediaUrl = (hero.bgMediaUrl || '').trim();
+  const rawHeroMediaUrl = (hero.bgMediaUrl || '').trim();
+  const heroMediaUrl = resolveImageUrl(rawHeroMediaUrl, '');
   const isHeroVideo =
     hero.bgMediaType === 'video' ||
     /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(heroMediaUrl);
@@ -105,6 +108,7 @@ export default function OurProducts() {
             isHeroVideo ? (
               <video
                 src={heroMediaUrl}
+                poster={hero.posterUrl ? resolveImageUrl(hero.posterUrl) : undefined}
                 autoPlay
                 loop
                 muted
@@ -253,7 +257,7 @@ export default function OurProducts() {
                     <div className="w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] min-h-[260px] sm:min-h-[300px] lg:min-h-[340px] relative overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200">
                       {hasCardImage ? (
                         <img
-                          src={card.imageUrl.trim()}
+                          src={resolveImageUrl(card.imageUrl.trim(), '')}
                           alt=""
                           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                           loading="lazy"

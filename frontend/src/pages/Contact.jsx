@@ -97,7 +97,8 @@ export default function Contact() {
 
   // Hero settings
   const hero = cms.hero || {};
-  const heroBgMedia = (hero.bgMediaUrl || hero.bgImageUrl || '').trim();
+  const rawHeroBgMedia = (hero.bgMediaUrl || hero.bgImageUrl || '').trim();
+  const heroBgMedia = resolveImageUrl(rawHeroBgMedia, '');
   const isVideo =
     hero.bgMediaType === 'video' ||
     /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(heroBgMedia);
@@ -244,6 +245,7 @@ export default function Contact() {
             isVideo ? (
               <video
                 src={heroBgMedia}
+                poster={hero.posterUrl ? resolveImageUrl(hero.posterUrl) : undefined}
                 autoPlay
                 loop
                 muted

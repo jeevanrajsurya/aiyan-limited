@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { resolveImageUrl } from '../../utils/imageHelper';
 
 export const DEFAULT_RUNNING_PRODUCTS = [
   {
@@ -44,12 +45,7 @@ export const DEFAULT_RUNNING_PRODUCTS = [
  * Resolves local public images vs backend uploaded images
  */
 function resolveProductImage(url) {
-  if (!url) return '';
-  const clean = url.trim();
-  if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('data:')) {
-    return clean;
-  }
-  return clean;
+  return resolveImageUrl(url, '');
 }
 
 /**

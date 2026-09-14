@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { resolveImageUrl } from '../utils/imageHelper';
 import {
   Heart,
   MessageCircle,
@@ -305,7 +306,7 @@ export default function AppBentoSection({ specialtyData }) {
               {/* Phone Body & Metallic Edge Chassis Layer */}
               <img
                 className="absolute inset-0 w-full h-full pointer-events-none z-10 object-contain drop-shadow-[0_25px_40px_rgba(0,0,0,0.28)]"
-                src="/uploads/Phone-frame-bottom.png"
+                src={resolveImageUrl('/uploads/Phone-frame-bottom.png')}
                 alt="Smartphone Frame"
               />
 
@@ -351,7 +352,7 @@ export default function AppBentoSection({ specialtyData }) {
                         {/* Background Media: Auto-detect Video vs Image */}
                         {/\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(actualReel.image || '') || actualReel.mediaType === 'video' ? (
                           <video
-                            src={actualReel.image}
+                            src={resolveImageUrl(actualReel.image, '')}
                             autoPlay
                             loop
                             muted
@@ -360,7 +361,7 @@ export default function AppBentoSection({ specialtyData }) {
                           />
                         ) : (
                           <img
-                            src={actualReel.image}
+                            src={resolveImageUrl(actualReel.image, '')}
                             alt={actualReel.title}
                             className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-700"
                             loading="lazy"
@@ -477,7 +478,7 @@ export default function AppBentoSection({ specialtyData }) {
               {/* Dynamic Island Top Layer */}
               <img
                 className="absolute top-0 inset-x-0 w-full pointer-events-none z-30 object-contain"
-                src="/uploads/Phone-frame-top.png"
+                src={resolveImageUrl('/uploads/Phone-frame-top.png')}
                 alt=""
               />
             </div>

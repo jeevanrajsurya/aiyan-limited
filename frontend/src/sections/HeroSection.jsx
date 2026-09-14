@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { resolveImageUrl } from '../utils/imageHelper';
 
 export default function HeroSection({ heroData }) {
   const [videoFailed, setVideoFailed] = useState(false);
@@ -9,7 +10,7 @@ export default function HeroSection({ heroData }) {
   }
 
   // Unified dynamic CMS values: supports bgMediaUrl, bgImageUrl, or videoUrl
-  const mediaUrl =
+  const rawMediaUrl =
     typeof heroData?.bgMediaUrl === 'string' && heroData.bgMediaUrl.trim()
       ? heroData.bgMediaUrl.trim()
       : typeof heroData?.videoUrl === 'string' && heroData.videoUrl.trim()
@@ -17,6 +18,7 @@ export default function HeroSection({ heroData }) {
       : typeof heroData?.bgImageUrl === 'string' && heroData.bgImageUrl.trim()
       ? heroData.bgImageUrl.trim()
       : '/uploads/1789126910747-414335354.mp4';
+  const mediaUrl = resolveImageUrl(rawMediaUrl, '');
 
   const isVideo =
     (heroData?.bgMediaType === 'video' ||
@@ -65,6 +67,7 @@ export default function HeroSection({ heroData }) {
       {isVideo ? (
         <video
           src={mediaUrl}
+          poster={heroData?.posterUrl ? resolveImageUrl(heroData.posterUrl) : undefined}
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           playsInline
           muted

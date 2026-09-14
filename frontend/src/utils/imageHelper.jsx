@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-const API_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/api\/?$/, '');
+const rawApiUrl = (import.meta.env.VITE_API_URL || '').trim();
+export const API_ORIGIN = rawApiUrl
+  ? rawApiUrl.replace(/\/api\/?$/i, '').replace(/\/+$/, '')
+  : '';
 
-// Known bundled static assets deployed in frontend/public/uploads/
+// Known bundled static assets deployed in frontend/public/uploads/ (retained for backward-compatibility)
 export const KNOWN_STATIC_UPLOADS = new Set([
   'app-store.png',
   'broncos-lifestyle.jpeg',
@@ -74,39 +77,45 @@ export function isKnownStaticUpload(url) {
 }
 
 /**
- * Resolves an image URL against backend host or fallback.
+ * Resolves an image/media URL against backend host or fallback.
  * If url is explicitly empty string or 'none' (user removed it), returns ''.
  * If url is undefined or null, returns defaultFallback.
- * If url is an external URL (http/https/data:), returns as is.
+ * If url is an external or absolute URL (http/https/data:/blob:), returns as is.
  * If url is a relative path starting with /uploads:
- *   - Known bundled static uploads resolve locally from Vercel frontend.
- *   - Backend-generated uploads resolve against API_ORIGIN (Railway).
+ *   - Prefixes with API_ORIGIN (Railway backend) when configured.
+ *   - Retains relative path in local dev (handled by Vite proxy).
+ * Other relative paths (e.g. /fonts/, /images/, /assets/) remain unchanged for Vercel static serving.
  */
 export function resolveImageUrl(url, defaultFallback = '') {
   if (url === '' || url === 'none') {
     return '';
   }
   if (url === undefined || url === null) {
-    return defaultFallback;
+    return defaultFallback ? resolveImageUrl(defaultFallback, '') : '';
   }
   if (typeof url !== 'string' || url.trim() === '') {
-    return defaultFallback;
+    return defaultFallback ? resolveImageUrl(defaultFallback, '') : '';
   }
   const cleanUrl = url.trim();
-  if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://') || cleanUrl.startsWith('data:')) {
+  if (
+    cleanUrl.startsWith('http://') ||
+    cleanUrl.startsWith('https://') ||
+    cleanUrl.startsWith('data:') ||
+    cleanUrl.startsWith('blob:')
+  ) {
     return cleanUrl;
   }
   const normalized = cleanUrl.startsWith('/') ? cleanUrl : `/${cleanUrl}`;
 
   if (normalized.startsWith('/uploads/')) {
-    if (isKnownStaticUpload(normalized) || !API_ORIGIN) {
-      return normalized;
-    }
-    return `${API_ORIGIN}${normalized}`;
+    return API_ORIGIN ? `${API_ORIGIN}${normalized}` : normalized;
   }
 
   return normalized;
 }
+
+// Alias for general media (video, audio, images)
+export const resolveMediaUrl = resolveImageUrl;
 
 /**
  * SafeImage Component

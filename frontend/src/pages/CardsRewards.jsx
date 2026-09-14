@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCardsRewardsPageSettings, getCachedCardsRewardsSettings } from '../api/client';
-import { SafeImage } from '../utils/imageHelper';
+import { SafeImage, resolveImageUrl } from '../utils/imageHelper';
 import { ArrowRight, ChevronRight, CreditCard, Award, Gift, Sparkles } from 'lucide-react';
 
 export default function CardsRewards() {
@@ -44,7 +44,8 @@ export default function CardsRewards() {
           <div className="absolute inset-0 z-0">
             {hero.bgMediaType === 'video' && hero.bgMediaUrl ? (
               <video
-                src={hero.bgMediaUrl}
+                src={resolveImageUrl(hero.bgMediaUrl, '')}
+                poster={hero.posterUrl ? resolveImageUrl(hero.posterUrl) : undefined}
                 autoPlay
                 loop
                 muted

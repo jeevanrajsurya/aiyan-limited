@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { getAboutPageSettings, getCachedAboutSettings } from '../api/client';
 import { fallbackAboutCms } from '../data/forecourtData';
+import { resolveImageUrl } from '../utils/imageHelper';
 
 // Map icon string names to Lucide icons
 const ICON_MAP = {
@@ -107,7 +108,8 @@ export default function About() {
       : fallbackAboutCms.hygieneSection.protocols,
   };
 
-  const heroMediaUrl = (hero.bgMediaUrl || hero.bgImageUrl || '').trim();
+  const rawHeroMediaUrl = (hero.bgMediaUrl || hero.bgImageUrl || '').trim();
+  const heroMediaUrl = resolveImageUrl(rawHeroMediaUrl, '');
   const isHeroVideo =
     hero.bgMediaType === 'video' ||
     /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(heroMediaUrl);
@@ -175,7 +177,8 @@ export default function About() {
     return text;
   };
 
-  const storyMediaUrl = (story.imageUrl || story.mediaUrl || '').trim();
+  const rawStoryMediaUrl = (story.imageUrl || story.mediaUrl || '').trim();
+  const storyMediaUrl = resolveImageUrl(rawStoryMediaUrl, '');
   const hasStoryMedia = Boolean(storyMediaUrl);
   const isStoryVideo =
     story.mediaType === 'video' ||
@@ -207,6 +210,7 @@ export default function About() {
             isHeroVideo ? (
               <video
                 src={heroMediaUrl}
+                poster={hero.posterUrl ? resolveImageUrl(hero.posterUrl) : undefined}
                 autoPlay
                 loop
                 muted
@@ -527,7 +531,7 @@ export default function About() {
                   className="relative group h-[260px] sm:h-[320px] lg:h-[360px] xl:h-[400px] overflow-hidden bg-slate-900 md:border-r border-white/10 last:border-r-0"
                 >
                   <img
-                    src={img.url}
+                    src={resolveImageUrl(img.url, '')}
                     alt={img.alt || img.caption || `Forecourt View ${idx + 1}`}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
@@ -572,7 +576,7 @@ export default function About() {
                 {hygiene.imageUrl && (
                   <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-slate-900/5 border border-slate-200/90 group">
                     <img
-                      src={hygiene.imageUrl}
+                      src={resolveImageUrl(hygiene.imageUrl, '')}
                       alt={hygiene.title || 'Food Hygiene & Safety'}
                       className="w-full h-56 sm:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                     />

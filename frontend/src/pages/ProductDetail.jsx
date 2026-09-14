@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { getProduct } from '../api/products';
 import { useCart } from '../context/CartContext';
+import { resolveImageUrl } from '../utils/imageHelper';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -29,7 +30,7 @@ export default function ProductDetail() {
     <div className="mx-auto max-w-4xl px-4 py-12 grid md:grid-cols-2 gap-10">
       <div className="aspect-square bg-brand-50 rounded-2xl flex items-center justify-center text-brand-300 text-sm overflow-hidden">
         {product.imageUrl ? (
-          <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+          <img src={resolveImageUrl(product.imageUrl, '')} alt={product.name} className="w-full h-full object-cover" />
         ) : (
           'No image'
         )}
