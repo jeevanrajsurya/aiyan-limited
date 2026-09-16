@@ -13,6 +13,7 @@ import {
   Coins,
   Truck,
 } from 'lucide-react';
+import { renderGradientHeading } from '../utils/textHelper';
 
 export default function Rewards({ onOpenFleet }) {
   const cards = [
@@ -208,7 +209,7 @@ export default function Rewards({ onOpenFleet }) {
             Simple 3-Step Process
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            How to Stack Your Savings
+            {renderGradientHeading('How to Stack Your Savings', 'Your Savings')}
           </h2>
           <p className="text-sm text-[#797979]">
             Saving on fuel and C-store favorites takes less than 2 minutes to set up.
@@ -243,7 +244,7 @@ export default function Rewards({ onOpenFleet }) {
             Choose Your Program
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            Find the Perfect Card For Your Drive
+            {renderGradientHeading('Find the Perfect Card For Your Drive', 'For Your Drive')}
           </h2>
           <p className="text-sm text-[#797979]">
             Whether you are a solo commuter, a busy family, or managing a fleet of work trucks, we have a tailored rewards program for you.

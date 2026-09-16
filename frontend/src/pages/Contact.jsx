@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { getContactPageSettings, submitInquiry, getCachedContactSettings } from '../api/client';
 import { fallbackSettings } from '../data/forecourtData';
 import { resolveImageUrl } from '../utils/imageHelper';
+import { renderGradientHeading } from '../utils/textHelper';
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -361,7 +362,7 @@ export default function Contact() {
                       {/* Heading & Subheading */}
                       {officeHeading && (
                         <h2 className="font-gotham text-2xl sm:text-3xl font-black text-[#071e26] tracking-tight leading-snug">
-                          {officeHeading}
+                          {renderGradientHeading(officeHeading, 'Regional Distribution')}
                         </h2>
                       )}
 
@@ -620,7 +621,7 @@ export default function Contact() {
               Customer Support &amp; Inquiries
             </span>
             <h2 className="font-gotham text-3xl sm:text-4xl font-bold text-[#161616] tracking-tight">
-              Inquiry &amp; Feedback Form
+              {renderGradientHeading('Inquiry & Feedback Form', 'Feedback Form')}
             </h2>
             <p className="font-gotham text-base sm:text-lg text-[#686e77] mt-2">
               Your car knows and we&#8217;d like to know too. Drop us a line below.

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCardsRewardsPageSettings, getCachedCardsRewardsSettings } from '../../api/client';
 import { SafeImage } from '../../utils/imageHelper';
+import { renderGradientHeading } from '../../utils/textHelper';
 import { ArrowRight, ChevronRight, Gift, Sparkles, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export default function GiftCardsPage() {
@@ -109,7 +110,7 @@ export default function GiftCardsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mb-20">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="font-gotham text-3xl sm:text-4xl font-bold text-[#161616] tracking-tight">
-            Why Choose S&amp;B Retail Gift Cards?
+            {renderGradientHeading('Why Choose S&B Retail Gift Cards?', 'Gift Cards?')}
           </h2>
           <p className="font-gotham text-slate-600 text-base mt-2">
             The simplest, most practical gift for everyday drivers, commuting teams, and families.

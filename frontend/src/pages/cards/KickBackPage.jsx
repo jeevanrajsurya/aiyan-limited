@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCardsRewardsPageSettings, getCachedCardsRewardsSettings } from '../../api/client';
 import { SafeImage } from '../../utils/imageHelper';
+import { renderGradientHeading } from '../../utils/textHelper';
 import { ArrowRight, ChevronRight, Gift, Phone, Mail, Award, CheckCircle } from 'lucide-react';
 
 export default function KickBackPage() {
@@ -94,7 +95,7 @@ export default function KickBackPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mb-20 sm:mb-28">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="font-gotham text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#161616] tracking-tight">
-            {howItWorks.headline || 'How it works'}
+            {renderGradientHeading(howItWorks.headline || 'How it works')}
           </h2>
           <p className="font-gotham text-slate-600 text-base sm:text-lg mt-3">
             Earning and redeeming rewards with S&amp;B Retail is quick and automatic.
@@ -163,7 +164,7 @@ export default function KickBackPage() {
                 }`}
               >
                 <h2 className="font-gotham text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#161616] tracking-tight leading-tight">
-                  {card.title}
+                  {renderGradientHeading(card.title)}
                 </h2>
 
                 <div className="space-y-4 font-gotham text-[16px] sm:text-[17px] text-[#2c2c2c] leading-relaxed">

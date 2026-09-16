@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { getAboutPageSettings, getCachedAboutSettings } from '../api/client';
 import { fallbackAboutCms } from '../data/forecourtData';
+import { renderGradientHeading } from '../utils/textHelper';
 import { resolveImageUrl } from '../utils/imageHelper';
 
 // Map icon string names to Lucide icons
@@ -337,7 +338,7 @@ export default function About() {
 
                 {story.title && (
                   <h2 className="font-founders text-2xl sm:text-4xl lg:text-[42px] font-black text-[#071e26] tracking-tight leading-[1.15]">
-                    {story.title}
+                    {renderGradientHeading(story.title)}
                   </h2>
                 )}
 
@@ -462,7 +463,7 @@ export default function About() {
               )}
               {featuresSec.title && (
                 <h2 className="font-founders text-3xl sm:text-4xl lg:text-[44px] font-black text-[#071e26] tracking-tight leading-[1.12]">
-                  {featuresSec.title}
+                  {renderGradientHeading(featuresSec.title)}
                 </h2>
               )}
               {featuresSec.subtitle && (
@@ -557,7 +558,7 @@ export default function About() {
               <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
                 {hygiene.title && (
                   <h2 className="font-founders text-3xl sm:text-4xl lg:text-[44px] font-black text-[#161616] tracking-tight leading-[1.15]">
-                    {hygiene.title}
+                    {renderGradientHeading(hygiene.title)}
                   </h2>
                 )}
 

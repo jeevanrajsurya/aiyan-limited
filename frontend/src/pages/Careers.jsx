@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import JobApplyModal from '../components/JobApplyModal';
+import { renderGradientHeading } from '../utils/textHelper';
 
 export default function Careers({ onOpenJob }) {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -163,7 +164,7 @@ export default function Careers({ onOpenJob }) {
             Why Work With Us
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            Benefits Designed to Support You &amp; Your Family
+            {renderGradientHeading('Benefits Designed to Support You & Your Family', 'You & Your Family')}
           </h2>
           <p className="text-sm text-[#797979]">
             We invest in our associates with competitive pay packages and real opportunities for professional growth.
@@ -192,7 +193,7 @@ export default function Careers({ onOpenJob }) {
             Current Openings
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            Find Your Role with S&B Petrol
+            {renderGradientHeading('Find Your Role with S&B Petrol', 'S&B Petrol')}
           </h2>
           <p className="text-sm text-[#797979]">
             Apply online in under 3 minutes. Our hiring manager reviews all applications promptly.

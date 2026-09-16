@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCardsRewardsPageSettings, getCachedCardsRewardsSettings } from '../../api/client';
 import { SafeImage } from '../../utils/imageHelper';
+import { renderGradientHeading } from '../../utils/textHelper';
 import { ArrowRight, ChevronRight, ShieldCheck, CreditCard } from 'lucide-react';
 
 export default function CreditCardsPage() {
@@ -105,7 +106,7 @@ export default function CreditCardsPage() {
                   }`}
                 >
                   <h2 className="font-gotham text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#161616] tracking-tight leading-tight">
-                    {card.title}
+                    {renderGradientHeading(card.title)}
                   </h2>
 
                   <div className="space-y-4 font-gotham text-[16px] sm:text-[17px] text-[#2c2c2c] leading-relaxed">

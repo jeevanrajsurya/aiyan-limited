@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { resolveImageUrl } from '../utils/imageHelper';
+import { renderGradientHeading } from '../utils/textHelper';
 import {
   Heart,
   MessageCircle,
@@ -493,10 +494,9 @@ export default function AppBentoSection({ specialtyData }) {
           {(hasTitle || hasDescription) && (
             <div className="space-y-3">
               {hasTitle && (
-                <h2
-                  className="font-gotham text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-[#161616] leading-[1.12]"
-                  dangerouslySetInnerHTML={{ __html: title }}
-                />
+                <h2 className="font-gotham text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-[#161616] leading-[1.12]">
+                  {renderGradientHeading(title, 'Everyday Savings\\.?')}
+                </h2>
               )}
               {hasDescription && (
                 <p className="font-gotham text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">

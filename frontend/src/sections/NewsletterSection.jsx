@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Upload, FileText, X, Loader2, ChevronDown } from 'lucide-react';
 import { submitNewsletterSubscription } from '../api/client';
+import { renderGradientHeading } from '../utils/textHelper';
 
 export const DEFAULT_NEWSLETTER_POSITIONS = [
   'Store Associate / Cashier',
@@ -124,7 +125,7 @@ export default function NewsletterSection({ newsletterData }) {
           <div className="max-w-3xl mb-6 sm:mb-8">
             {newsletterTitle ? (
               <h2 className="font-founders text-2xl sm:text-3xl font-black text-[#161616] tracking-tight leading-tight">
-                {newsletterTitle}
+                {renderGradientHeading(newsletterTitle, 'actually like\\.?')}
               </h2>
             ) : null}
             {newsletterDesc ? (

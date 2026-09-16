@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getCardsRewardsPageSettings, getCachedCardsRewardsSettings } from '../api/client';
 import { SafeImage, resolveImageUrl } from '../utils/imageHelper';
+import { renderGradientHeading } from '../utils/textHelper';
 import { ArrowRight, ChevronRight, CreditCard, Award, Gift, Sparkles } from 'lucide-react';
 
 export default function CardsRewards() {
@@ -83,7 +84,7 @@ export default function CardsRewards() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mb-16 sm:mb-24 text-center">
         <div className="max-w-4xl mx-auto space-y-5">
           <h2 className="font-gotham text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#161616] tracking-tight leading-tight">
-            {intro.headline || 'Fuel savings, premium rewards and seamless fleet management in your pocket.'}
+            {renderGradientHeading(intro.headline || 'Fuel savings, premium rewards and seamless fleet management in your pocket.')}
           </h2>
           <p className="font-gotham text-slate-700 text-lg sm:text-[20px] font-normal leading-relaxed">
             {intro.body ||

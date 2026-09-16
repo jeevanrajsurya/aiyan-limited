@@ -4,6 +4,7 @@ import { Sparkles } from 'lucide-react';
 import { getOurProductsPageSettings, getCachedOurProductsSettings } from '../api/client';
 import { fallbackOurProductsCms } from '../data/ourProductsData';
 import { resolveImageUrl } from '../utils/imageHelper';
+import { renderGradientHeading } from '../utils/textHelper';
 
 export default function OurProducts() {
   const { data: cmsData, isLoading } = useQuery({
@@ -213,7 +214,7 @@ export default function OurProducts() {
         <section className="max-w-[1040px] mx-auto px-4 sm:px-6 pt-12 pb-8 sm:pt-16 sm:pb-12 text-center">
           {intro.headline && (
             <h2 className="font-founders text-2xl sm:text-3xl lg:text-[38px] font-black text-[#071e26] leading-tight tracking-tight max-w-4xl mx-auto">
-              {intro.headline}
+              {renderGradientHeading(intro.headline, 'quenching your thirst\\.?')}
             </h2>
           )}
 
@@ -233,7 +234,7 @@ export default function OurProducts() {
               <p className="text-base font-bold">No product feature cards currently available.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
               {actionCards
                 .filter((card) => card.enabled !== false)
                 .map((card, idx) => {
@@ -242,24 +243,24 @@ export default function OurProducts() {
                 return (
                   <div
                     key={card.id || `card-${idx}`}
-                    className="group relative rounded-[28px] overflow-hidden bg-white border border-slate-200/90 hover:border-[#005f73]/50 shadow-[0_8px_30px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_22px_45px_-8px_rgba(0,95,115,0.22)] transition-all duration-500 hover:-translate-y-2 flex flex-col"
+                    className="group relative w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-[420px] lg:max-w-[395px] flex-grow-0 flex-shrink-0 flex flex-col bg-white rounded-[26px] p-2.5 sm:p-3 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.02)] hover:border-[#005f73]/50 hover:shadow-[0_24px_48px_-10px_rgba(0,95,115,0.22)] transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Top Accent Precision Hairline Stripe (Illuminating Accent on Hover) */}
-                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#005f73] via-[#0a9396] to-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20" />
+                    <div className="absolute top-0 inset-x-8 h-[3px] rounded-full bg-gradient-to-r from-[#005f73] via-[#0a9396] to-[#f59e0b] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 shadow-[0_2px_8px_rgba(10,147,150,0.4)]" />
 
-                    {/* 4 Architectural Precision Corner Accents */}
-                    <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-white/70 rounded-tl-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-white/70 rounded-tr-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-white/70 rounded-bl-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-white/70 rounded-br-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    {/* Pure Image Canvas Chassis */}
+                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 ring-1 ring-black/[0.06]">
+                      {/* 4 Architectural Precision Corner Viewfinder Accents */}
+                      <div className="absolute top-3.5 left-3.5 w-4 h-4 border-t-2 border-l-2 border-white rounded-tl-sm z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] scale-90 group-hover:scale-100" />
+                      <div className="absolute top-3.5 right-3.5 w-4 h-4 border-t-2 border-r-2 border-white rounded-tr-sm z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] scale-90 group-hover:scale-100" />
+                      <div className="absolute bottom-3.5 left-3.5 w-4 h-4 border-b-2 border-l-2 border-white rounded-bl-sm z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] scale-90 group-hover:scale-100" />
+                      <div className="absolute bottom-3.5 right-3.5 w-4 h-4 border-b-2 border-r-2 border-white rounded-br-sm z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] scale-90 group-hover:scale-100" />
 
-                    {/* Pure Image Canvas (Zero Text Inside - 100% Visual Focus) */}
-                    <div className="w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] min-h-[260px] sm:min-h-[300px] lg:min-h-[340px] relative overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200">
                       {hasCardImage ? (
                         <img
                           src={resolveImageUrl(card.imageUrl.trim(), '')}
                           alt=""
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-106"
                           loading="lazy"
                         />
                       ) : (
@@ -276,6 +277,12 @@ export default function OurProducts() {
 
                       {/* Ambient Glassmorphism Hover Shimmer Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none z-10" />
+
+                      {/* Diagonal Sheen Reflection on Hover */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/12 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
+
+                      {/* Precision Sub-pixel Inner Rim */}
+                      <div className="absolute inset-0 rounded-[18px] sm:rounded-[20px] ring-1 ring-inset ring-black/5 pointer-events-none z-20" />
                     </div>
                   </div>
                 );

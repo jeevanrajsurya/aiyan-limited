@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { resolveImageUrl } from '../utils/imageHelper';
+import { renderGradientHeading } from '../utils/textHelper';
 
 /**
  * Default Pinned Forecourt Cards matching the reference layout
@@ -364,10 +365,9 @@ export default function PinnedProductsSection({ pinnedData }) {
         {(hasTitle || hasDescription) && (
           <div className="text-center max-w-5xl mx-auto mb-3 sm:mb-4 px-4 sm:px-6 select-text">
             {hasTitle && (
-              <h2
-                className="font-gotham font-black text-2xl sm:text-3xl lg:text-4xl text-[#161616] tracking-tight leading-snug max-w-4xl mx-auto"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
+              <h2 className="font-gotham font-black text-2xl sm:text-3xl lg:text-4xl text-[#161616] tracking-tight leading-snug max-w-4xl mx-auto">
+                {renderGradientHeading(title, 'Fergus & Gibbs history\\.?')}
+              </h2>
             )}
             {hasDescription && (
               <p className="mt-2.5 font-gotham text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed max-w-4xl mx-auto">

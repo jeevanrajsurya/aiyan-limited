@@ -18,6 +18,7 @@ import {
 import { getLiveFuelPrices, getForecourtServices } from '../api/client';
 import { fallbackFuelPrices, fallbackServices } from '../data/forecourtData';
 import FuelPriceBoard from '../components/FuelPriceBoard';
+import { renderGradientHeading, DARK_HERO_GRADIENT_CLASS } from '../utils/textHelper';
 
 export default function FuelServices({ onOpenValet, onOpenFleet }) {
   const { data: fuelPrices } = useQuery({
@@ -192,7 +193,7 @@ export default function FuelServices({ onOpenValet, onOpenFleet }) {
             Engineered For Performance
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            Every Drop Meets Top Tier™ Certification
+            {renderGradientHeading('Every Drop Meets Top Tier™ Certification', 'Top Tier™ Certification')}
           </h2>
           <p className="text-sm text-[#797979]">
             Conoco fuels contain 3 times more cleaning detergents than minimum EPA requirements, actively preventing deposit accumulation on vital engine valves.
@@ -253,7 +254,7 @@ export default function FuelServices({ onOpenValet, onOpenFleet }) {
                   Forecourt Auto Spa
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-black tracking-tight">
-                  High-Pressure Touchless &amp; Soft-Cloth Car Wash
+                  {renderGradientHeading('High-Pressure Touchless & Soft-Cloth Car Wash', 'Soft-Cloth Car Wash', DARK_HERO_GRADIENT_CLASS)}
                 </h2>
                 <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
                   Protect your paint with ceramic polymer sealants, undercarriage rust inhibitors, and high-velocity spot-free drying. Open 06:00 AM - 10:00 PM daily.

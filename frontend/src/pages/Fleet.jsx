@@ -14,6 +14,7 @@ import {
   Phone,
   Mail,
 } from 'lucide-react';
+import { renderGradientHeading } from '../utils/textHelper';
 import toast from 'react-hot-toast';
 import { submitInquiry } from '../api/client';
 
@@ -141,7 +142,7 @@ export default function Fleet() {
               Heavy Duty Forecourt Infrastructure
             </span>
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#161616]">
-              Built for Fast Commercial Turnarounds
+              {renderGradientHeading('Built for Fast Commercial Turnarounds', 'Commercial Turnarounds')}
             </h2>
           </div>
 
@@ -166,7 +167,7 @@ export default function Fleet() {
             Volume Fuel Rebates
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-[#161616]">
-            The More You Pump, The More You Save
+            {renderGradientHeading('The More You Pump, The More You Save', 'The More You Save')}
           </h2>
           <p className="text-sm text-[#797979]">
             Rebates are calculated automatically each month and credited directly against your commercial statement.
