@@ -28,15 +28,33 @@ app.set('trust proxy', 1);
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
-// Allow requests from both the customer frontend and the admin app
-const normalizeOrigin = (url) => (url ? url.trim().replace(/\/+$/, '') : null);
+// Parse single or comma-separated URLs and normalize them (strip trailing slashes)
+const parseOrigins = (val) =>
+  val
+    ? val
+        .split(',')
+        .map((u) => u.trim().replace(/\/+$/, ''))
+        .filter(Boolean)
+    : [];
 
-const allowedOrigins = [
-  normalizeOrigin(process.env.CLIENT_URL),
-  normalizeOrigin(process.env.ADMIN_URL),
+// Explicitly allowed first-party deployment & local development origins
+const defaultOrigins = [
+  'https://sandb-retail-admin.onrender.com',
+  'https://sandb-retail-frontend.onrender.com',
+  'https://aiyan-limited-admin.vercel.app',
+  'https://aiyan-limited.vercel.app',
   'http://localhost:5173',
   'http://localhost:5174',
-].filter(Boolean);
+];
+
+const allowedOrigins = Array.from(
+  new Set([
+    ...defaultOrigins,
+    ...parseOrigins(process.env.CLIENT_URL),
+    ...parseOrigins(process.env.ADMIN_URL),
+    ...parseOrigins(process.env.ALLOWED_ORIGINS),
+  ])
+);
 
 app.use(
   cors({
@@ -50,6 +68,7 @@ app.use(
       return callback(null, false);
     },
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 
