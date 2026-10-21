@@ -14,7 +14,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "admin:upsert": "node scripts/upsert-admin.js"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",

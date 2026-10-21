@@ -3,6 +3,8 @@ dist/
 .env
 uploads/*
 !uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
 .DS_Store
 bundled-assets/
 backend/bundled-assets/

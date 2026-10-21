@@ -22,6 +22,9 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 
 const app = express();
 
+// Trust Render's 1-hop reverse proxy for accurate IP rate limiting and secure cookie headers
+app.set('trust proxy', 1);
+
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 

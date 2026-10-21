@@ -180,3 +180,19 @@ model JobApplication {
 
   @@map("job_applications")
 }
+
+model NewsletterSubmission {
+  id          String   @id @default(uuid())
+  firstName   String   @map("first_name")
+  lastName    String?  @map("last_name")
+  email       String
+  phone       String?
+  zip         String?
+  position    String?
+  resumeUrl   String?  @map("resume_url")
+  status      String?  @default("NEW")
+  submittedAt DateTime @default(now()) @map("submitted_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("newsletter_submissions")
+}
